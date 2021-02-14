@@ -1,0 +1,25 @@
+// Baixa o repositório do git
+git clone <link repositório>
+ex: git clone https://github.com/victhorplus/form-pet
+// após o comando acima, será criada uma pasta no diretório atual com o nome
+// do respositório, acessar a pasta para poder fazer o pull e push
+
+// Configuração inicial
+// Define nome e email e essas informações serão utilizadas no commit
+
+git config --global user.name "Fulano de Tal"
+git config --global user.email fulanodetal@exemplo.br
+
+// Baixa as alterações (bom utilizar antes de mecher no código)
+git pull
+
+// Processo para subir alterações no git
+    // Passo 1 - adiciona todas as novas alterações
+    git add .
+
+    // Passo 2 - comenta a alteração (comentário do que se trata as alterações)
+    git commit -m "mensagem comentario"
+    ex: git commit -m "estilizei os campos do formulário"
+
+    // Passo 3 - subir alterações
+    git push origin master
