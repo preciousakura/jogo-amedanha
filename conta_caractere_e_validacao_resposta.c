@@ -1,3 +1,5 @@
+#include <ctype.h>
+
 int contar_Caractere(char *res){
     int tamanho = 0;
     while(res[tamanho] != '\0'){
