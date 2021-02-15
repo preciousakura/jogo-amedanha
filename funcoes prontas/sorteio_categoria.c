@@ -34,10 +34,10 @@ int existe(int sequencia[], int valor){
     return 0;
 }
 
-void sortear_categoria(int sequencia[]){
+void sortear_sequencia(int sequencia[], int tamanho_sequencia){
     int sorteio = sortear_numero(5);
     int i = 0;
-    while(i < 5){
+    while(i < tamanho_sequencia){
         while(existe(sequencia, sorteio) == 1){
             sorteio = sortear_numero(5);
         }
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
     int sequencia[5] = {-1,-1,-1,-1,-1};
     char *categorias[5] = {"nome de pessoas", "nomes de cidade", "nomes de comida", "nomes de animais", "profissoes"};
     srand(time(NULL));
-    sortear_categoria(sequencia);
+    sortear_sequencia(sequencia, 5);
 
     for(int i = 0; i<5; i++){
         printf("%s\n", categorias[sequencia[i]]);
