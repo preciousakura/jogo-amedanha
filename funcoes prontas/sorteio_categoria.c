@@ -3,6 +3,19 @@
 #include <ctype.h>
 #include<time.h>
 
+int *criar_vetor(int tamanho){
+    int *vetor = (int*)malloc(tamanho * sizeof(int));
+    for(int i = 0; i<tamanho; i++){
+      vetor[i] = -1;
+    }
+    return vetor;
+}
+
+void liberar_vetor(int *mem){
+    free(mem);
+}
+
+
 int contar_Caractere(char *res){
     int tamanho = 0;
     while(res[tamanho] != '\0'){
@@ -24,7 +37,7 @@ int sortear_numero(int range){
     return sorteado;
 }
 
-int existe(int sequencia[], int valor){
+int existe(int *sequencia, int valor){
     int i;
     for(i = 0; i<5; i++){
         if(sequencia[i] == valor){
@@ -34,15 +47,15 @@ int existe(int sequencia[], int valor){
     return 0;
 }
 
-void sortear_sequencia(int sequencia[], int tamanho_sequencia){
-    int sorteio = sortear_numero(5);
-    int i = 0;
-    while(i < tamanho_sequencia){
-        while(existe(sequencia, sorteio) == 1){
-            sorteio = sortear_numero(5);
-        }
-        sequencia[i] = sorteio; 
-        i++;
+void sortear_sequencia(int *sequencia, int tamanho_sequencia){
+  int sorteio = sortear_numero(5);
+  int i = 0;
+
+    for(int i = 0; i < tamanho_sequencia; i++){
+      while(existe(sequencia, sorteio) == 1){
+        sorteio = sortear_numero(5); 
+    }
+      sequencia[i] = sorteio;
     }
 }
 
@@ -50,14 +63,16 @@ void sortear_sequencia(int sequencia[], int tamanho_sequencia){
 
 
 int main(int argc, char *argv[]){
-    int sequencia[5] = {-1,-1,-1,-1,-1};
+    int *sequencia = criar_vetor(5);
     char *categorias[5] = {"nome de pessoas", "nomes de cidade", "nomes de comida", "nomes de animais", "profissoes"};
     srand(time(NULL));
     sortear_sequencia(sequencia, 5);
 
     for(int i = 0; i<5; i++){
-        printf("%s\n", categorias[sequencia[i]]);
+      printf("%s\n", categorias[sequencia[i]]);
     }   
+
+    liberar_vetor(sequencia);
 
     return 0;
 }
