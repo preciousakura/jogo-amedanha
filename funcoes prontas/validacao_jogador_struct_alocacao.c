@@ -22,7 +22,7 @@ char **criar_matriz(int tamanho_x, int tamanho_y){
     return matriz;
 }
 
-void liberar_matriz(struct Jogador *mem){
+void liberar_vetor(struct Jogador *mem){
     free(mem);
 }
 
@@ -71,8 +71,7 @@ void jogadores(struct Jogador *jogador, int num_jogadores){
 }
 
 
-int main(){
-  
+int main(){ 
   int qtd_jogadores = num_jogadores();
   //char **pt_nome_pl = criar_matriz(qtd_jogadores, 12);
   struct Jogador *players = criar_jogadores(qtd_jogadores);
@@ -80,6 +79,5 @@ int main(){
   for(int i = 0; i < qtd_jogadores; i++){
     printf("%s\n", players[i].nome);
   }
-  
-  liberar_matriz(players);
+  liberar_vetor(players);
 }
