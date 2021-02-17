@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 char **criar_matriz(int tamanho_x, int tamanho_y){
     char **matriz = (char**)malloc((tamanho_x * tamanho_y) * sizeof(char));
@@ -19,18 +20,30 @@ int contar_Caractere(char *res){
     return tamanho;
 }
 
-int num_jogadores(){
-  int numero_de_jogadores = 0;
-
-    printf("Digite o numero de jogadores: "); // numero de jogadores deve ser maior q 10 e menor q 2;
-    scanf("%d", &numero_de_jogadores); //Numero de jogadores
-
-    while ((numero_de_jogadores < 2)||(numero_de_jogadores>10)) {
-        printf("Numero de jogadores invalido!\nDigite novamente: ");
-        scanf("%d",&numero_de_jogadores);
+int validar_string(char *string){ //verifica se o numero de jogadores digitado é valido
+  int cont = 0; 
+  for (int i = 0; i < contar_Caractere(string) - 1 ; i++){
+    if (!isdigit(string[i])){
+      return 1;
     }
+  }
+  return 0;
+}
 
-    return numero_de_jogadores;
+int num_jogadores(){
+  char str_jogadores[3];//numero de jogadores em char
+  printf("Digite o numero de jogadores: "); // numero de jogadores deve ser maior q 10 e menor q 2;
+  scanf("%s", str_jogadores); //Numero de jogadores
+  while (validar_string(str_jogadores) == 1){
+    printf("Numero invalido! Digite novamente:");
+    scanf("%s",str_jogadores);
+  }
+  int numero_de_jogadores = atoi(str_jogadores); //se o numero for valido, convertemos para inteiro 
+  while ((numero_de_jogadores < 2)||(numero_de_jogadores>10)) {
+      printf("Numero de jogadores invalido!\nDigite novamente: ");
+      scanf("%d",&numero_de_jogadores);
+  }
+  return numero_de_jogadores;
 }
 
 void jogadores(char **nome_de_jogadores, int num_jogadores){
