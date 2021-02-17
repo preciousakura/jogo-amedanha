@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 char **criar_matriz(int tamanho_x, int tamanho_y){
-    char **matriz = (char**)malloc((tamanho_x * tamanho_y) * sizeof(char));
+    char **matriz = (char**)malloc((tamanho_x) * sizeof(char));
     for(int i = 0; i<tamanho_x * tamanho_y; i++){ 
       matriz[i] = (char*)malloc(tamanho_y * sizeof(char));
     }
