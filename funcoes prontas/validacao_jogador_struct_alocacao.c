@@ -4,6 +4,7 @@
 
 struct Jogador{
     char nome[12];
+    char resposta[30];
     int pontos[5];
     int pontos_totais;
     int tempo_total;
