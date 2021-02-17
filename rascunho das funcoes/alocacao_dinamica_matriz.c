@@ -3,9 +3,9 @@
 #include <ctype.h>
 
 char **criar_matriz(int tamanho_x, int tamanho_y){
-    char **matriz = (char**)malloc((tamanho_x) * sizeof(char));
-    for(int i = 0; i<tamanho_x * tamanho_y; i++){ 
-      matriz[i] = (char*)malloc(tamanho_y * sizeof(char));
+    char **matriz = malloc((tamanho_x) * sizeof(char*));
+    for(int i = 0; i<tamanho_x; i++){ 
+      matriz[i] = malloc(tamanho_y * sizeof(char));
     }
     return matriz;
 }
@@ -58,15 +58,7 @@ void jogadores(char **nome_de_jogadores, int num_jogadores){
   }
 }
 
-
 int main(){
-
-  struct Jogador{
-    char nome[12];
-    int pontos[5];
-    int pontos_totais;
-    int tempo_total;
-  };
   int qtd_jogadores = num_jogadores();
   char **pt_nome_pl = criar_matriz(qtd_jogadores, 12);
   jogadores(pt_nome_pl, qtd_jogadores);

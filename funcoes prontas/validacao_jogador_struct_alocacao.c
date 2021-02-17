@@ -5,6 +5,7 @@
 struct Jogador{
     char nome[12];
     char resposta[30];
+    int tempo_resposta;
     int pontos[5];
     int pontos_totais;
     int tempo_total;
@@ -70,7 +71,6 @@ void jogadores(struct Jogador *jogador, int num_jogadores){
 	  }
   }
 }
-
 
 int main(){ 
   int qtd_jogadores = num_jogadores();
