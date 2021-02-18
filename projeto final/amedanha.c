@@ -175,6 +175,8 @@ void limpar_sequencia(int *sequencia, int tam) {
 /* ---------- fim funcoes de sorteio ---------- */
 
 void limpar_tela() {
+  	//Erro de buffer
+  	getchar();
 	system("clear");
 }
 
@@ -219,11 +221,12 @@ void rodar_jogo() {
 		for (j = 0; j < qtd_jogadores; j++) {
 			printf("  %d. %s\n", j + 1, jogador[jog_sort[j]].nome);
 		}
-
-		// limpar a tela
+    printf("\nTecle [Enter] para iniciar a rodada: ");
+    getchar();
+		limpar_tela();
 
 		for (j = 0; j < qtd_jogadores; j++) {
-			printf("%s, voce deve entrar um \"%s\" em %d segundos: ", jogador[jog_sort[j]].nome, categoriaAtual[0], tempo_jogador(qtd_jogadores, j));
+			printf("%s, voce deve entrar um \"%s\" com a letra \"%c\" em %d segundos: ", jogador[jog_sort[j]].nome, categoriaAtual[0], letraAtual,tempo_jogador(qtd_jogadores, j));
 
 			temp_init = marcar_tempo();
 			resposta(jogador[jog_sort[j]].resposta, letraAtual);
