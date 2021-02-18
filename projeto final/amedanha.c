@@ -99,34 +99,19 @@ void sortear_sequencia(int *sequencia, int tamanho_sequencia, int qtd) {
 	}
 }
 
-int validar_string(
-	char *string) { // verifica se o numero de jogadores digitado é valido
-	int cont = 0;
-	for (int i = 0; i < contar_Caractere(string) - 1; i++) {
-		if (!isdigit(string[i])) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
 void limpar_sequencia(int *sequencia, int tam) {
 	memset(sequencia, -1, sizeof(int));
 }
 
 int num_jogadores() {
-	char str_jogadores[3];					  // numero de jogadores em char
-	printf("Digite o numero de jogadores: ");
-										
-	scanf("%s", str_jogadores);				  
-	while (validar_string(str_jogadores) == 1) {
-		printf("Numero invalido! Digite novamente:");
-		scanf("%s", str_jogadores);
-	}
+	char str_jogadores[50]; 
+  printf("Digite o numero de jogadores: ");
+	scanf("%s", str_jogadores);	
 	int numero_de_jogadores = atoi(str_jogadores); 
-	while ((numero_de_jogadores < 2) || (numero_de_jogadores > 10)) {
-		printf("Numero de jogadores invalido!\nDigite novamente: ");
-		scanf("%d", &numero_de_jogadores);
+	while (((numero_de_jogadores < 2) || (numero_de_jogadores > 10)) || contar_Caractere(str_jogadores) > 2) {
+		printf("Quantidade Invalida. Somente de 2 a 10 jogadores: ");
+		scanf("%s", str_jogadores);
+    numero_de_jogadores = atoi(str_jogadores);
 	}
 	return numero_de_jogadores;
 }
