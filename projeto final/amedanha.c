@@ -45,9 +45,7 @@ int tempo(int qtd_de_jogadores, int jogadas_ja_feitas){
 }
 
 int tempo_excedido(int tempo_rodada, int tempo){ 
-    int tempo_maximo = tempo; //formula dada no enunciado
-    
-    if (tempo_rodada > tempo_maximo) {
+    if (tempo_rodada > tempo) {
         return 1;// tempo excedido, não contaremos a resposta
     }
     else {
@@ -71,7 +69,9 @@ int tempo_final(int t_init, int t_final){
 
 int contar_Caractere(char *res){
     int tamanho = 0;
-    while(res[tamanho++] != '\0');
+    while(res[tamanho] != '\0'){
+        tamanho++;
+    }
     return tamanho;
 }
 
@@ -152,7 +152,7 @@ void resposta(char *resposta, char letra_Atual){
 
     int str_tamanho = contar_Caractere(resposta);
     while(str_tamanho > 30 || str_tamanho == 0 || tolower(resposta[0]) != letra_Atual){
-        printf("Resposta Inválida! Digite uma resposta válida: ");
+        printf("Resposta Invalida! Digite uma resposta valida: ");
         scanf("%s", resposta);
     }
 }
@@ -180,19 +180,18 @@ void rodar_jogo(){
         printf("\nA letra desta rodada e: %c\n", toupper(letraAtual));
         printf("A categoria desta rodada e: %s\n", categoriaAtual[0]);
         sortear_sequencia(jog_sort, qtd_jogadores, qtd_jogadores);
-        printf("A ordem desta jogada será: \n");
+        printf("A ordem desta jogada sera: \n");
         for(j = 0; j < qtd_jogadores; j++){
           printf("  %d. %s\n", j+1, jogador[jog_sort[j]].nome);
         }
         //limpar_tela();
         for(j = 0; j < qtd_jogadores; j++){
-          printf("%s, você deve entrar um \"%s\" em %d segundos: ", jogador[jog_sort[j]].nome, categoriaAtual[0],tempo(qtd_jogadores, j));
+          printf("%s, voce deve entrar um \"%s\" em %d segundos: ", jogador[jog_sort[j]].nome, categoriaAtual[0],tempo(qtd_jogadores, j));
           temp_init = marcar_tempo();
           resposta(jogador[jog_sort[j]].resposta, letraAtual);
           temp_fim = marcar_tempo();
           temp_total = tempo_final(temp_init, temp_fim);
-          printf("\ntempo: %d\n", temp_total);
-          if(!tempo_excedido(temp_total, tempo(qtd_jogadores, j))){
+          if(tempo_excedido(temp_total, tempo(qtd_jogadores, j))){
             jogador[jog_sort[j]].resposta[0] = '\0';
           }
         }

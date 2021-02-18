@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include<time.h> 
+#include <string.h>
 
 struct Jogador{
     char nome[12];
     char resposta[30];
+    int tempo_resposta;
     int pontos[5];
     int pontos_totais;
     int tempo_total;
@@ -72,13 +73,40 @@ void jogadores(struct Jogador *jogador, int num_jogadores){
   }
 }
 
+int resposta_repetida(struct Jogador *jogador, char *resposta, int num_jogadores){
+  int repetidas = 0;
+  for(int i = 0; i<num_jogadores; i++){
+    printf("%s %s\n", resposta, jogador[i].resposta);
+    if(!strcmp (resposta,jogador[i].resposta)){
+      repetidas++;
+    }
+  }
+  return repetidas;
+}
+
+
+void resposta(char *resposta, char letra_Atual){
+    printf("Resposta ");
+    scanf("%s", resposta);
+
+    int str_tamanho = contar_Caractere(resposta);
+    while(str_tamanho > 30 || str_tamanho == 0 || tolower(resposta[0]) != letra_Atual){
+        printf("Resposta Inválida! Digite uma resposta válida: ");
+        scanf("%s", resposta);
+    }
+}
+
 int main(){ 
   int qtd_jogadores = num_jogadores();
   //char **pt_nome_pl = criar_matriz(qtd_jogadores, 12);
   struct Jogador *players = criar_jogadores(qtd_jogadores);
   jogadores(players, qtd_jogadores);
   for(int i = 0; i < qtd_jogadores; i++){
-    printf("%s\n", players[i].nome);
+    resposta(players[i].resposta, 'a');
+    printf("%d\n", resposta_repetida(players, players[i].resposta, i));
+  }
+  for(int i = 0; i < qtd_jogadores; i++){
+     // printf("%s\n", players[i].resposta);
   }
   liberar_vetor(players);
 }
