@@ -116,16 +116,14 @@ void limpar_sequencia(int *sequencia, int tam) {
 
 int num_jogadores() {
 	char str_jogadores[3];					  // numero de jogadores em char
-	printf("Digite o numero de jogadores: "); // numero de jogadores deve ser
-											  // maior q 10 e menor q 2;
-	scanf("%s", str_jogadores);				  // Numero de jogadores
+	printf("Digite o numero de jogadores: ");
+										
+	scanf("%s", str_jogadores);				  
 	while (validar_string(str_jogadores) == 1) {
 		printf("Numero invalido! Digite novamente:");
 		scanf("%s", str_jogadores);
 	}
-
-	int numero_de_jogadores =
-		atoi(str_jogadores); // se o numero for valido, convertemos para inteiro
+	int numero_de_jogadores = atoi(str_jogadores); 
 	while ((numero_de_jogadores < 2) || (numero_de_jogadores > 10)) {
 		printf("Numero de jogadores invalido!\nDigite novamente: ");
 		scanf("%d", &numero_de_jogadores);
@@ -138,11 +136,8 @@ void jogadores(struct Jogador *jogador, int num_jogadores) {
 		printf("Digite o nome do jogador %d: ", i + 1);
 		scanf("%s", jogador[i].nome);
 
-		while ((contar_Caractere(jogador[i].nome) > 12) ||
-			   (contar_Caractere(jogador[i].nome) == 0)) {
-			printf(
-				"Nome invalido! Digite o nome do jogador %d novamente: ",
-				i + 1);
+		while ((contar_Caractere(jogador[i].nome) > 12) || (contar_Caractere(jogador[i].nome) == 0)) {
+			printf("Nome invalido! Digite o nome do jogador %d novamente: ", i + 1);
 			scanf("%s", jogador[i].nome);
 		}
 	}
@@ -152,8 +147,7 @@ void resposta(char *resposta, char letra_Atual) {
 	scanf("%s", resposta);
 
 	int str_tamanho = contar_Caractere(resposta);
-	while (str_tamanho > 30 || str_tamanho == 0 ||
-		   tolower(resposta[0]) != letra_Atual) {
+	while (str_tamanho > 30 || str_tamanho == 0 || tolower(resposta[0]) != letra_Atual) {
 		printf("Resposta Invalida! Digite uma resposta valida: ");
 		scanf("%s", resposta);
 	}
@@ -168,6 +162,7 @@ void rodar_jogo() {
 	const char alfabeto[23] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 							   'i', 'j', 'l', 'm', 'n', 'o', 'p', 'q',
 							   'r', 's', 't', 'u', 'v', 'x', 'z'};
+
 	int temp_init, temp_fim, temp_total;
 	char letraAtual;
 	char *categoriaAtual[18];
@@ -194,17 +189,13 @@ void rodar_jogo() {
 		}
 		//limpar_tela();
 		for (j = 0; j < qtd_jogadores; j++) {
-			printf(
-				"%s, voce deve entrar um \"%s\" em %d segundos: ",
-				jogador[jog_sort[j]].nome,
-				categoriaAtual[0],
-				tempo(qtd_jogadores, j));
+			printf("%s, voce deve entrar um \"%s\" em %d segundos: ", jogador[jog_sort[j]].nome, categoriaAtual[0], tempo(qtd_jogadores, j));
 			temp_init = marcar_tempo();
 			resposta(jogador[jog_sort[j]].resposta, letraAtual);
 			temp_fim = marcar_tempo();
 			temp_total = tempo_final(temp_init, temp_fim);
 			if (tempo_excedido(temp_total, tempo(qtd_jogadores, j))) {
-        printf("Tempo excedido! Sua resposta nao foi considerada.\n");
+        		printf("Tempo excedido! Sua resposta nao foi considerada.\n");
 				jogador[jog_sort[j]].resposta[0] = '\0';
 			}
 		}
