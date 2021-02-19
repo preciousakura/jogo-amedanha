@@ -5,8 +5,8 @@
 #include <string.h>
 
 struct Jogador {
-	char nome[12];
-	char resposta[30];
+	char nome[13];
+	char resposta[31];
 	int pontos[5];
 	int pontos_totais;
 	int tempo_total;
@@ -82,38 +82,42 @@ int contar_Caractere(char *res) { // conta o número de caracteres
 	return tamanho;
 }
 
+void getString(char *string, int tamanho){
+	fgets(string, tamanho, stdin);
+	string[strcspn(string, "\n")] = '\0';
+}
+
 int num_jogadores() { // numero de jogadores
 	char str_jogadores[50]; 
-    printf("Digite o numero de jogadores: ");
-	scanf("%s", str_jogadores);	
+  	printf("Digite o numero de jogadores: ");
+	getString(str_jogadores, 50);
 	int numero_de_jogadores = atoi(str_jogadores); 
-	while (((numero_de_jogadores < 2) || (numero_de_jogadores > 10)) || contar_Caractere(str_jogadores) > 2) {
+	while ((numero_de_jogadores < 2) || (numero_de_jogadores > 10)) {
 		printf("Quantidade Invalida. Somente de 2 a 10 jogadores: ");
-		scanf("%s", str_jogadores);
-    numero_de_jogadores = atoi(str_jogadores);
+		getString(str_jogadores, 50);
+    	numero_de_jogadores = atoi(str_jogadores);
 	}
 	return numero_de_jogadores;
 }
 
 void jogadores(struct Jogador *jogador, int num_jogadores) { // nome dos jogadores
 	for (int i = 0; i < num_jogadores; i++) {
-		printf("Digite o nome do jogador %d: ", i + 1);
-		scanf("%s", jogador[i].nome);
+	printf("Digite o nome do jogador %d: ", i + 1);
+	getString(jogador[i].nome, 255);
 
-		while ((contar_Caractere(jogador[i].nome) > 12) || (contar_Caractere(jogador[i].nome) == 0)) {
+		while ((contar_Caractere(jogador[i].nome) > 13) || (contar_Caractere(jogador[i].nome) == 0)) {
 			printf("Nome invalido! Digite o nome do jogador %d novamente: ", i + 1);
-			scanf("%s", jogador[i].nome);
+			getString(jogador[i].nome, 255);
 		}
 	}
 }
 
 void resposta(char *resposta, char letra_Atual) { // resposta
-	scanf("%s", resposta);
-
+	getString(resposta, 255);
 	int str_tamanho = contar_Caractere(resposta);
-	while (str_tamanho > 30 || str_tamanho == 0 || tolower(resposta[0]) != letra_Atual) {
+	while (str_tamanho > 31 || str_tamanho == 0 || toupper(resposta[0]) != letra_Atual) {
 		printf("Resposta Invalida! Digite uma resposta valida: ");
-		scanf("%s", resposta);
+		getString(resposta, 255);
 	}
 }
 
@@ -187,9 +191,9 @@ void rodar_jogo() {
 						   "Nome de Animal",
 						   "Profissao"};
 
-	char alfabeto[23] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-							   'i', 'j', 'l', 'm', 'n', 'o', 'p', 'q',
-							   'r', 's', 't', 'u', 'v', 'x', 'z'};
+	char alfabeto[23] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+							   'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q',
+							   'R', 'S', 'T', 'U', 'V', 'X', 'Z'};
 
 	printf("*** JOGO AMEDONHA ***\n\n");
 	int qtd_jogadores = num_jogadores(); // numero de jogadores
@@ -211,7 +215,7 @@ void rodar_jogo() {
 
 	for (i = 0; i < 5; i++) {
 		letraAtual = alfabeto[sortear_elemento(letra_sort, 23)];
-		printf("\nA letra desta rodada e: %c\n", toupper(letraAtual));
+		printf("\nA letra desta rodada e: %c\n", letraAtual);
 
 		categoriaAtual[0] = categorias[sortear_elemento(categ_sort, 5)];
 		printf("A categoria desta rodada e: %s\n", categoriaAtual[0]);
@@ -221,8 +225,7 @@ void rodar_jogo() {
 		for (j = 0; j < qtd_jogadores; j++) {
 			printf("  %d. %s\n", j + 1, jogador[jog_sort[j]].nome);
 		}
-    printf("\nTecle [Enter] para iniciar a rodada: ");
-    getchar();
+    	printf("\nTecle [Enter] para iniciar a rodada: ");
 		limpar_tela();
 
 		for (j = 0; j < qtd_jogadores; j++) {
