@@ -179,9 +179,7 @@ void limpar_sequencia(int *sequencia, int tam) {
 /* ---------- fim funcoes de sorteio ---------- */
 
 void limpar_tela() {
-  	//Erro de buffer
-  	getchar();
-	system("clear");
+	system("cls");
 }
 
 void rodar_jogo() {
@@ -226,6 +224,7 @@ void rodar_jogo() {
 			printf("  %d. %s\n", j + 1, jogador[jog_sort[j]].nome);
 		}
     	printf("\nTecle [Enter] para iniciar a rodada: ");
+		getchar();
 		limpar_tela();
 
 		for (j = 0; j < qtd_jogadores; j++) {
@@ -237,12 +236,25 @@ void rodar_jogo() {
 			temp_total = tempo_final(temp_init, temp_fim);
 
 			if (tempo_excedido(temp_total, tempo_jogador(qtd_jogadores, j))) {
-        		printf("Tempo excedido! Sua resposta nao foi considerada.\n");
 				jogador[jog_sort[j]].resposta[0] = '\0';
 			}
+			//tempo total
+			//pontuacao
+			limpar_tela();
+		}
+
+		printf("Jogadas realizadas:\n");
+		for (j = 0; j < qtd_jogadores; j++) {
+			printf("%-12s %s\n", jogador[j].nome, jogador[j].resposta);
 		}
 		limpar_sequencia(jog_sort, qtd_jogadores);
 	}
+	
+	liberar_vetor(letra_sort);
+    liberar_vetor(categ_sort);
+	liberar_vetor(jog_sort);
+
+    liberar_jogador(jogador);
 }
 
 int main() {
