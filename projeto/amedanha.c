@@ -6,7 +6,7 @@
 
 struct Jogador {
 	char nome[13];
-	char resposta[31];
+	char resposta[30];
 	int pontos[5];
 	int pontos_totais;
 	int tempo_total;
@@ -105,7 +105,7 @@ void jogadores(struct Jogador *jogador, int num_jogadores) { // nome dos jogador
 	printf("Digite o nome do jogador %d: ", i + 1);
 	getString(jogador[i].nome, 255);
 
-		while ((contar_Caractere(jogador[i].nome) > 13) || (contar_Caractere(jogador[i].nome) == 0)) {
+		while ((contar_Caractere(jogador[i].nome) > 12) || (contar_Caractere(jogador[i].nome) == 0)) {
 			printf("Nome invalido! Digite o nome do jogador %d novamente: ", i + 1);
 			getString(jogador[i].nome, 255);
 		}
@@ -114,8 +114,7 @@ void jogadores(struct Jogador *jogador, int num_jogadores) { // nome dos jogador
 
 void resposta(char *resposta, char letra_Atual) { // resposta
 	getString(resposta, 255);
-	int str_tamanho = contar_Caractere(resposta);
-	while (str_tamanho > 31 || str_tamanho == 0 || toupper(resposta[0]) != letra_Atual) {
+	while (contar_Caractere(resposta) > 30 || contar_Caractere(resposta) == 0 || toupper(resposta[0]) != letra_Atual) {
 		printf("Resposta Invalida! Digite uma resposta valida: ");
 		getString(resposta, 255);
 	}
@@ -190,8 +189,8 @@ void rodar_jogo() {
 						   "Profissao"};
 
 	char alfabeto[23] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-							   'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q',
-							   'R', 'S', 'T', 'U', 'V', 'X', 'Z'};
+						 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q',
+						 'R', 'S', 'T', 'U', 'V', 'X', 'Z'};
 
 	printf("*** JOGO AMEDONHA ***\n\n");
 	int qtd_jogadores = num_jogadores(); // numero de jogadores
@@ -209,13 +208,15 @@ void rodar_jogo() {
 	struct Jogador *jogador = criar_jogadores(qtd_jogadores);
 	jogadores(jogador, qtd_jogadores); // nome dos jogadores
 
-	int i, j;
+	sortear_sequencia(categ_sort, 5, 5);
+
+	int i, j, k;
 
 	for (i = 0; i < 5; i++) {
 		letraAtual = alfabeto[sortear_elemento(letra_sort, 23)];
 		printf("\nA letra desta rodada e: %c\n", letraAtual);
 
-		categoriaAtual[0] = categorias[sortear_elemento(categ_sort, 5)];
+		categoriaAtual[0] = categorias[categ_sort[i]];
 		printf("A categoria desta rodada e: %s\n", categoriaAtual[0]);
 
 		sortear_sequencia(jog_sort, qtd_jogadores, qtd_jogadores); // ordem de jogadores
@@ -242,11 +243,12 @@ void rodar_jogo() {
 			//pontuacao
 			limpar_tela();
 		}
-
+		
 		printf("Jogadas realizadas:\n");
 		for (j = 0; j < qtd_jogadores; j++) {
-			printf("%-12s %s\n", jogador[j].nome, jogador[j].resposta);
+			printf("%-12s -> %s\n", jogador[j].nome, jogador[j].resposta);
 		}
+
 		limpar_sequencia(jog_sort, qtd_jogadores);
 	}
 	
