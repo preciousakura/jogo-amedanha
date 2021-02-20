@@ -210,7 +210,7 @@ void rodar_jogo() {
 
 	sortear_sequencia(categ_sort, 5, 5);
 
-	int i, j, k;
+	int i, j;
 
 	for (i = 0; i < 5; i++) {
 		letraAtual = alfabeto[sortear_elemento(letra_sort, 23)];
