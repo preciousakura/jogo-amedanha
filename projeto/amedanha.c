@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <sys/time.h>
 
 struct Jogador {
 	char nome[13];
 	char resposta[30];
-	int pontos[5];
-	int pontos_totais;
+	int pontos[6];
 	int tempo_total;
 };
 
@@ -42,18 +42,18 @@ void liberar_vetor(int *mem) {
 
 /* ---------- funcoes de tempo ---------- */
 
-int marcar_tempo() {
-	int tempo_inicial;
-	time_t tempo_i;
-	tempo_i = clock();
-
-	tempo_inicial = (int)(tempo_i) / CLOCKS_PER_SEC;
-	return tempo_inicial;
+int marcar_tempo(){ 
+    struct timeval  inicio;
+    gettimeofday(&inicio,NULL);
+    int tempo_inicial = inicio.tv_sec;
+    return tempo_inicial;
 }
 
-int tempo_final(int t_init, int t_final) {
-	int tempo_total = t_final - t_init;
-	return tempo_total;
+int tempo_final(int t_init){ 
+    struct timeval fim;
+    gettimeofday(&fim,NULL);
+    int tempo_final = fim.tv_sec - t_init;
+    return tempo_final;
 }
 
 int tempo_jogador(int qtd_de_jogadores, int jogadas_ja_feitas) { //calcula o tempo que cada jogador tem;
@@ -68,6 +68,10 @@ int tempo_excedido(int tempo_rodada, int tempo) {
 	} else {
 		return 0; 
 	}
+}
+
+void somatorio_tempo(struct Jogador *jogador,int tempo_rodada,int numero_do_jogador){
+    jogador[numero_do_jogador].tempo_total += tempo_rodada;
 }
 
 /* ---------- fim funcoes de tempo ---------- */
@@ -178,7 +182,7 @@ void limpar_sequencia(int *sequencia, int tam) {
 /* ---------- fim funcoes de sorteio ---------- */
 
 void limpar_tela() {
-	system("cls");
+	system("clear");
 }
 
 void rodar_jogo() {
@@ -233,9 +237,8 @@ void rodar_jogo() {
 
 			temp_init = marcar_tempo();
 			resposta(jogador[jog_sort[j]].resposta, letraAtual);
-			temp_fim = marcar_tempo();
-			temp_total = tempo_final(temp_init, temp_fim);
-
+			temp_total = tempo_final(temp_init);
+      		somatorio_tempo(jogador,temp_total,j); 
 			if (tempo_excedido(temp_total, tempo_jogador(qtd_jogadores, j))) {
 				jogador[jog_sort[j]].resposta[0] = '\0';
 			}
