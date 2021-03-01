@@ -186,15 +186,8 @@ void limpar_tela() {
 }
 
 void rodar_jogo() {
-	char *categorias[5] = {"Nome de Pessoa",
-						   "Nome de Cidade",
-						   "Nome de Comida",
-						   "Nome de Animal",
-						   "Profissao"};
-
-	char alfabeto[23] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-						 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q',
-						 'R', 'S', 'T', 'U', 'V', 'X', 'Z'};
+	char *categorias[5] = {"Nome de Pessoa", "Nome de Cidade", "Nome de Comida", "Nome de Animal", "Profissao"};
+	char alfabeto[23] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Z'};
 
 	printf("*** JOGO AMEDONHA ***\n\n");
 	int qtd_jogadores = num_jogadores(); // numero de jogadores
@@ -228,7 +221,7 @@ void rodar_jogo() {
 		for (j = 0; j < qtd_jogadores; j++) {
 			printf("  %d. %s\n", j + 1, jogador[jog_sort[j]].nome);
 		}
-    	printf("\nTecle [Enter] para iniciar a rodada: ");
+    		printf("\nTecle [Enter] para iniciar a rodada: ");
 		getchar();
 		limpar_tela();
 
@@ -238,7 +231,7 @@ void rodar_jogo() {
 			temp_init = marcar_tempo();
 			resposta(jogador[jog_sort[j]].resposta, letraAtual);
 			temp_total = tempo_final(temp_init);
-      		somatorio_tempo(jogador,temp_total,j); 
+      			somatorio_tempo(jogador,temp_total,j); 
 			if (tempo_excedido(temp_total, tempo_jogador(qtd_jogadores, j))) {
 				jogador[jog_sort[j]].resposta[0] = '\0';
 			}
@@ -256,10 +249,10 @@ void rodar_jogo() {
 	}
 	
 	liberar_vetor(letra_sort);
-    liberar_vetor(categ_sort);
+    	liberar_vetor(categ_sort);
 	liberar_vetor(jog_sort);
 
-    liberar_jogador(jogador);
+    	liberar_jogador(jogador);
 }
 
 int main() {
