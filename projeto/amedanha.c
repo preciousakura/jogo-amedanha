@@ -183,29 +183,27 @@ void limpar_sequencia(int *sequencia, int tam) {
 /* ---------- fim funcoes de sorteio ---------- */
 
 void mostrar_resultado(struct Jogador *jogador, int rodada, int *sequencia, char **categoria, int num_jog) {
-  if(rodada < 4)
-    printf("\nConcluída a rodada, esta é a tabela de escores:\n\n");
-  else 
-    printf("\nRESULTADO FINAL:\n\n");
+	if(rodada < 4)
+		printf("\nConcluída a rodada, esta é a tabela de escores:\n\n");
+  	else 
+    	printf("\nRESULTADO FINAL:\n\n");
   
-  printf("%13s", "  ");
+	printf("%13s", "  ");
 	for(int i = 0; i<rodada+1; i++){
-    if(i < 5) {
-      printf("%-15s ", categoria[sequencia[i]]);
-    }
+		if(i < 5) 
+			printf("%-15s ", categoria[sequencia[i]]);
 	}
-  if(rodada < 4) 
-    printf("%-15s", "Total Parcial");
-  else 
-    printf("%-15s", "Total Geral");
-  printf("\n");
+  	if(rodada < 4) 
+    	printf("%-15s", "Total Parcial");
+  	else 
+    	printf("%-15s", "Total Geral");
+  	printf("\n");
 
 	for(int i = 0; i<num_jog; i++){
 		printf("%-12s ", jogador[i].nome);
-		for(int j = 0; j<rodada+1; j++){
+		for(int j = 0; j<rodada+1; j++)
 			printf("%-15d ", jogador[i].pontos[sequencia[j]]);
-		}
-    printf("%-15d", jogador[i].pontos[5]);
+    	printf("%-15d", jogador[i].pontos[5]);
 		printf("\n");
 	}
 }
@@ -324,7 +322,7 @@ void rodar_jogo() {
 				validacao_Nome_de_Pessoa(jogador[jog_sort[j]].resposta);
 			}
 			temp_total = tempo_final(temp_init);
-      		somatorio_tempo(jogador,temp_total,j); 
+      		somatorio_tempo(jogador,temp_total, jog_sort[j]); 
 			if (tempo_excedido(temp_total, tempo_jogador(qtd_jogadores, j))) {
 				jogador[jog_sort[j]].resposta[0] = '\0';
 			}
@@ -352,7 +350,6 @@ void rodar_jogo() {
   liberar_vetor(categ_sort);
   liberar_vetor(jog_sort);
   liberar_jogador(jogador);
-
 }
 
 int main() {
